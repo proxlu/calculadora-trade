@@ -1,0 +1,1206 @@
+<style>
+  @media screen and (min-width: 320px) {
+    .calculator {
+      font-size: calc(16px + 6 * ((100vw - 320px) / 680));
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    .calculator {
+      font-size: 22px;
+    }
+  }
+
+  .calculator {
+    max-width: 650px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 24px;
+
+    border-radius: 15px;
+    border: 1px solid black;
+  }
+
+  .calculator-inputs {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .calculator-title {
+    font-size: 1.1em;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: bold;
+  }
+
+  .calculator-column {
+    width: 49%;
+    display: grid;
+    grid-template-columns: 72% 25%;
+    grid-gap: 3%;
+    margin-bottom: 20px;
+    align-items: baseline;
+  }
+
+  .calculator-row {
+    width: 100%;
+    text-align: right;
+
+  }
+
+  /*.calculator-row:last-child {
+    margin-bottom: 0;
+  }*/
+
+  .calculator-mb {
+    margin-bottom: 50px;
+  }
+
+  .calculator-input {
+    width: 100% !important;
+  }
+
+  .calculator-input-input {
+    box-sizing: border-box;
+    display: flex !important;
+    font-size: .8em !important;
+    border-radius: 30px !important;
+    padding: 5px 10px !important;
+    border: 0 !important;
+    background-color: #ddd !important;
+    text-align: right !important;
+    margin: 0 !important;
+  }
+
+  .calculator-input-input.disabled {
+    background-color: #eee !important;
+  }
+
+  .calculator-input-input label {
+    width: 4% !important;
+    margin-left: .1em;
+    font-size: .9em !important;
+    color: #222;
+  }
+
+  .calculator-input-input input {
+    width: 90% !important;
+    text-align: right;
+    padding: 0 !important;
+    background-color: transparent !important;
+    border: none !important;
+    outline: none !important;
+    font-size: 1.1em !important;
+    height: 1em !important;
+    margin: 0 !important;
+  }
+
+  .calculator-input p {
+    font-size: .5em !important;
+    text-align: right !important;
+    color: red;
+    margin: 0 !important;
+  }
+
+  .calculator-label {
+    text-align: right;
+    font-size: 0.75em;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .calculator-button {
+    text-align: right;
+    color: black !important;
+    width: fit-content;
+    font-size: .8em !important;
+    padding: 4px 20px !important;
+    border-radius: 30px !important;
+    background-color: #FBDE00 !important;
+    border: 0;
+    cursor: pointer;
+    margin: 0 !important;
+    margin-left: auto !important;
+  }
+
+  .calculator-button:hover {
+    background-color: #aaa !important;
+  }
+
+  .calculator-results {
+
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .calculator-results .calculator-results-item {
+    padding: 15px 0;
+    box-sizing: border-box;
+    font-size: .8em;
+    width: 47%;
+    border-bottom: 1px solid gray;
+
+    /* justify-content: space-between; */
+
+    display: flex;
+  }
+
+  .calculator-results .calculator-results-item .calculator-results-item-title {
+    font-size: .85em;
+    width: 65%;
+    font-weight: bold;
+    /*padding:10px;
+    box-sizing: border-box;
+    font-size:.8em;
+    width:50%;border: 1px solid gray;*/
+  }
+
+  .calculator-results .calculator-results-item .calculator-results-item-result {
+    width: 34%;
+    margin-left: auto;
+    text-align: right;
+
+
+
+
+    /*padding:10px;
+    box-sizing: border-box;
+    font-size:.8em;
+    width:50%;border: 1px solid gray;*/
+  }
+
+  .calculator-results .calculator-results-item .calculator-results-item-result span {
+    display: inline-block;
+    min-width: 3em;
+    background-color: #ddd;
+    border-radius: 30px;
+    padding: 5px 10px;
+  }
+</style>
+<div class="calculator">
+    <div class="calculator-title"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+      Calculadora de Valor-P e EMDD
+    </font></font></div>
+
+    <div class="calculator-inputs">
+
+      <div class="calculator-column" id="nBets">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Número de apostas</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="1000">
+            <label>&nbsp;</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="calculator-column" id="nMontecarlo">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Número de simulações</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="1000">
+            <label>&nbsp;</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+
+      
+
+      <div class="calculator-column" id="yield">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Colheita</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="5">
+            <label>%</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+
+      
+
+      
+
+      
+      
+
+      
+
+      <div class="calculator-column" id="X">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">X (u.)</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="50">
+            <label>&nbsp;</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="calculator-column" id="betSize">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Tamanho médio da aposta</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="1">
+            <label>&nbsp;</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+      
+      <div class="calculator-column" id="Y">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Y (%)</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="0">
+            <label>&nbsp;</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+
+      <div class="calculator-column" id="odds">
+        <label class="calculator-label"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Probabilidades Médias Ponderadas</font></font></label>
+        <div class="calculator-input">
+          <div class="calculator-input-input">
+            <input type="text" value="2">
+            <label>&nbsp;</label>
+          </div>
+          <p></p>
+        </div>
+      </div>
+
+      
+
+      <div class="calculator-row">
+        <div></div>
+        <button class="calculator-button" id="calculator-button-ev"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Calcular</font></font></button>
+      </div>
+
+    </div>
+
+
+    <div id="results" style="display: none;">
+      <div class="calculator-title">
+        Resultados
+      </div>
+      <div class="calculator-results calculator-mb">
+        <div id="profit" class="calculator-results-item">
+          <div class="calculator-results-item-title">LUCRO:</div>
+          <div class="calculator-results-item-result"><span></span></div>
+        </div>
+        <div id="EMDD" class="calculator-results-item">
+          <div class="calculator-results-item-title">RECUPERAÇÃO MÁXIMA ESPERADA (EMDD): </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="hitrate" class="calculator-results-item">
+          <div class="calculator-results-item-title">HIDRATO: </div>
+          <div class="calculator-results-item-result"><span></span></div>
+        </div>
+        <div id="xMDD" class="calculator-results-item">
+          <div class="calculator-results-item-title">RECUPERAÇÃO MÁXIMA MÉDIA DE MONTECARLO (XMDD): </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="profitPerBet" class="calculator-results-item">
+          <div class="calculator-results-item-title">LUCRO POR APOSTA (MU): </div>
+          <div class="calculator-results-item-result"><span></span></div>
+        </div>
+        <div id="medianMDD" class="calculator-results-item">
+          <div class="calculator-results-item-title">RECUPERAÇÃO MÉDIA MAXIMA: </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="yieldStandardDesviation" class="calculator-results-item">
+          <div class="calculator-results-item-title">DESVIO PADRÃO DE RENDIMENTO (SIGMA): </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="resultX" class="calculator-results-item">
+          <div class="calculator-results-item-title">PROBABILIDADE DE SAQUE MÁXIMO ≥ X:</div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="tStatistic" class="calculator-results-item">
+          <div class="calculator-results-item-title">ESTATÍSTICA-T: </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="resultY" class="calculator-results-item">
+          <div class="calculator-results-item-title">PROBABILIDADE DE RENDIMENTO ≥ Y:</div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="pValue" class="calculator-results-item">
+          <div class="calculator-results-item-title">VALOR-P: </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="ProfitEMDD" class="calculator-results-item">
+          <div class="calculator-results-item-title">LUCRO / EMDD:</div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="XProbability" class="calculator-results-item">
+          <div class="calculator-results-item-title">1-EM-X: </div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+        <div id="ProfitxMDD" class="calculator-results-item">
+          <div class="calculator-results-item-title">LUCRO / XMDD:</div>
+          <div class="calculator-results-item-result"><span>50</span></div>
+        </div>
+      </div>
+
+      <div id="container" class="calculator-mb"></div>
+
+      <div id="container-MDD"></div>
+
+    </div>
+
+
+
+
+
+
+  </div>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="http://129.148.56.77/jsstats.js"></script>
+<script type="text/javascript">
+  // select all the buttons
+  const buttonEv = document.querySelector('#calculator-button-ev');
+
+  buttonEv.addEventListener('click', calculateEv);
+  //buttons.forEach(function (button) {
+  //  button.addEventListener('click', calculate);
+  //});
+
+  function isNumeric(number) {
+    return !isNaN(parseFloat(number)) && !isNaN(+number);
+  }
+
+  function EMaxDrawDown(mu, sigma, t) {
+
+    const Eps = 0.00000001;
+    const Pi = 3.14159265;
+
+    let EMaxDrawDown;
+
+    if (sigma < Eps) {
+      if (mu >= 0)
+        EMaxDrawDown = 0;
+      else {
+        EMaxDrawDown = -mu * t;
+        return EMaxDrawDown;
+      }
+    }
+
+    EMaxDrawDown = 0;
+    if (t < Eps)
+      EMaxDrawDown = 0;
+    else {
+      if (Math.abs(mu) <= Eps)
+        EMaxDrawDown = (Math.sqrt(Pi / 2) * sigma) * Math.sqrt(t);
+      else if (mu > Eps) {
+        const Alpha = mu / (2 * sigma * sigma);
+        EMaxDrawDown = emaxddQp(Alpha * mu * t) / Alpha;
+      } else {
+        const Alpha = mu / (2 * sigma * sigma);
+        EMaxDrawDown = -emaxddQn(Alpha * mu * t) / Alpha;
+      }
+    }
+
+    return EMaxDrawDown;
+  }
+
+  function McMaximumDrawdown(odds, yield, betSize, numBets) {
+
+    if (odds < 1) {
+      odds = 1;
+      yield = 0;
+    }
+
+    if (numBets < 0)
+      numBets = 0
+
+    const hitrate = (1 + yield) / odds;
+
+    let profit = 0;
+    let maxProfit = 0;
+    let drawdown = 0;
+    let mcMaximumDrawdown = 0;
+
+    for (let i = 0; i < numBets; i++) {
+      const rnd = Math.random(); // Rnd da un número aleatorio entre 0 y 1     
+
+      if (rnd < hitrate)
+        profit = profit + betSize * (odds - 1);
+      else
+        profit = profit - betSize;
+
+      if (profit > maxProfit)
+        maxProfit = profit;
+
+      drawdown = maxProfit - profit;
+
+      if (drawdown > mcMaximumDrawdown)
+        mcMaximumDrawdown = drawdown
+
+    }
+
+    return mcMaximumDrawdown
+
+
+
+
+
+  }
+
+  function generateMDD(odds, yield, betSize, numBets, numSimulations) {
+    if (numSimulations < 0)
+      numSimulations = 0;
+
+    let mDD = [];
+    for (let i = 0; i < numSimulations; i++) {
+      mDD[i] = McMaximumDrawdown(odds, yield, betSize, numBets)
+    }
+    return mDD;
+  }
+
+  function McAvgMaximumDrawdown(mDD) {
+    let mcAvgMaximumDrawdown = 0;
+    let numSimulations = mDD.length;
+    for (let i = 0; i < numSimulations; i++) {
+      mcAvgMaximumDrawdown = mcAvgMaximumDrawdown + mDD[i];
+    }
+    mcAvgMaximumDrawdown = mcAvgMaximumDrawdown / numSimulations;
+    return mcAvgMaximumDrawdown;
+  }
+
+  function mddDistribution(mDD) {
+    let minMDD = Math.min(...mDD);
+    let maxMDD = Math.max(...mDD);
+    let numSimulations = mDD.length;
+
+    minMDD = parseInt(minMDD)
+    maxMDD = parseInt(maxMDD)
+    let numMDD = maxMDD - minMDD + 1
+
+    let mddDistribution = [];
+
+    for (let i = 0; i < numMDD; i++) {
+      mddDistribution[i] = [];
+      mddDistribution[i][0] = minMDD + i;
+      mddDistribution[i][1] = 0;
+    }
+
+    for (let i = 0; i < numSimulations; i++) {
+      let index = parseInt(mDD[i]) - minMDD;
+      mddDistribution[index][1] = mddDistribution[index][1] + 1;
+    }
+    return mddDistribution;
+  }
+
+  function emaxddQp(x) {
+    const pi = 3.14159265;
+    const a = [];
+    const b = [];
+    a[1] = 0.0005;
+    b[1] = 0.01969;
+    a[2] = 0.001;
+    b[2] = 0.027694;
+    a[3] = 0.0015;
+    b[3] = 0.033789;
+    a[4] = 0.002;
+    b[4] = 0.038896;
+    a[5] = 0.0025;
+    b[5] = 0.043372;
+    a[6] = 0.005;
+    b[6] = 0.060721;
+    a[7] = 0.0075;
+    b[7] = 0.073808;
+    a[8] = 0.01;
+    b[8] = 0.084693;
+    a[9] = 0.0125;
+    b[9] = 0.094171;
+    a[10] = 0.015;
+    b[10] = 0.10265;
+    a[11] = 0.0175;
+    b[11] = 0.11038;
+    a[12] = 0.02;
+    b[12] = 0.1175;
+    a[13] = 0.0225;
+    b[13] = 0.12414;
+    a[14] = 0.025;
+    b[14] = 0.13037;
+    a[15] = 0.0275;
+    b[15] = 0.13626;
+    a[16] = 0.03;
+    b[16] = 0.14184;
+    a[17] = 0.0325;
+    b[17] = 0.14716;
+    a[18] = 0.035;
+    b[18] = 0.15225;
+    a[19] = 0.0375;
+    b[19] = 0.15713;
+    a[20] = 0.04;
+    b[20] = 0.16182;
+    a[21] = 0.0425;
+    b[21] = 0.16634;
+    a[22] = 0.045;
+    b[22] = 0.1707;
+    a[23] = 0.0475;
+    b[23] = 0.17492;
+    a[24] = 0.05;
+    b[24] = 0.17902;
+    a[25] = 0.055;
+    b[25] = 0.18684;
+    a[26] = 0.06;
+    b[26] = 0.19425;
+    a[27] = 0.065;
+    b[27] = 0.20129;
+    a[28] = 0.07;
+    b[28] = 0.208;
+    a[29] = 0.075;
+    b[29] = 0.21442;
+    a[30] = 0.08;
+    b[30] = 0.22058;
+    a[31] = 0.085;
+    b[31] = 0.22651;
+    a[32] = 0.09;
+    b[32] = 0.23221;
+    a[33] = 0.095;
+    b[33] = 0.23772;
+    a[34] = 0.1;
+    b[34] = 0.24305;
+    a[35] = 0.15;
+    b[35] = 0.28872;
+    a[36] = 0.2;
+    b[36] = 0.32507;
+    a[37] = 0.25;
+    b[37] = 0.35558;
+    a[38] = 0.3;
+    b[38] = 0.38202;
+    a[39] = 0.35;
+    b[39] = 0.40542;
+    a[40] = 0.4;
+    b[40] = 0.42645;
+    a[41] = 0.45;
+    b[41] = 0.44559;
+    a[42] = 0.5;
+    b[42] = 0.46316;
+    a[43] = 1;
+    b[43] = 0.58864;
+    a[44] = 1.5;
+    b[44] = 0.66899;
+    a[45] = 2;
+    b[45] = 0.72854;
+    a[46] = 2.5;
+    b[46] = 0.77598;
+    a[47] = 3;
+    b[47] = 0.81546;
+    a[48] = 3.5;
+    b[48] = 0.8493;
+    a[49] = 4;
+    b[49] = 0.87893;
+    a[50] = 4.5;
+    b[50] = 0.90531;
+    a[51] = 5;
+    b[51] = 0.92907;
+    a[52] = 10;
+    b[52] = 1.089;
+    a[53] = 15;
+    b[53] = 1.1849;
+    a[54] = 20;
+    b[54] = 1.2538;
+    a[55] = 25;
+    b[55] = 1.3076;
+    a[56] = 30;
+    b[56] = 1.3518;
+    a[57] = 35;
+    b[57] = 1.3893;
+    a[58] = 40;
+    b[58] = 1.4219;
+    a[59] = 45;
+    b[59] = 1.4507;
+    a[60] = 50;
+    b[60] = 1.4765;
+    a[61] = 100;
+    b[61] = 1.6471;
+    a[62] = 150;
+    b[62] = 1.7475;
+    a[63] = 200;
+    b[63] = 1.8189;
+    a[64] = 250;
+    b[64] = 1.8743;
+    a[65] = 300;
+    b[65] = 1.9197;
+    a[66] = 350;
+    b[66] = 1.958;
+    a[67] = 400;
+    b[67] = 1.9913;
+    a[68] = 450;
+    b[68] = 2.0206;
+    a[69] = 500;
+    b[69] = 2.0469;
+    a[70] = 1000;
+    b[70] = 2.2198;
+    a[71] = 1500;
+    b[71] = 2.321;
+    a[72] = 2000;
+    b[72] = 2.3928;
+    a[73] = 2500;
+    b[73] = 2.4486;
+    a[74] = 3000;
+    b[74] = 2.4941;
+    a[75] = 3500;
+    b[75] = 2.5326;
+    a[76] = 4000;
+    b[76] = 2.566;
+    a[77] = 4500;
+    b[77] = 2.5954;
+    a[78] = 5000;
+    b[78] = 2.6217;
+
+    let emaxddQp;
+
+    if (x > 5000) {
+      emaxddQp = 0.25 * Math.log(x) + 0.49088;
+    } else if (x < 0.0005) {
+      emaxddQp = 0.5 * Math.sqrt(pi * x);
+    } else {
+      emaxddQp = LinInterp(x, a, b);
+    }
+
+    return emaxddQp;
+  }
+
+  function emaxddQn(x) {
+    const pi = 3.14159265;
+
+    const a = [];
+    const b = [];
+
+    a[1] = 0.0005;
+    b[1] = 0.019965;
+    a[2] = 0.001;
+    b[2] = 0.028394;
+    a[3] = 0.0015;
+    b[3] = 0.034874;
+    a[4] = 0.002;
+    b[4] = 0.040369;
+    a[5] = 0.0025;
+    b[5] = 0.045256;
+    a[6] = 0.005;
+    b[6] = 0.064633;
+    a[7] = 0.0075;
+    b[7] = 0.079746;
+    a[8] = 0.01;
+    b[8] = 0.092708;
+    a[9] = 0.0125;
+    b[9] = 0.10426;
+    a[10] = 0.015;
+    b[10] = 0.11481;
+    a[11] = 0.0175;
+    b[11] = 0.12461;
+    a[12] = 0.02;
+    b[12] = 0.13377;
+    a[13] = 0.0225;
+    b[13] = 0.14243;
+    a[14] = 0.025;
+    b[14] = 0.15074;
+    a[15] = 0.0275;
+    b[15] = 0.15857;
+    a[16] = 0.03;
+    b[16] = 0.16623;
+    a[17] = 0.0325;
+    b[17] = 0.17376;
+    a[18] = 0.035;
+    b[18] = 0.18079;
+    a[19] = 0.0375;
+    b[19] = 0.18774;
+    a[20] = 0.04;
+    b[20] = 0.19449;
+    a[21] = 0.0425;
+    b[21] = 0.20109;
+    a[22] = 0.045;
+    b[22] = 0.20757;
+    a[23] = 0.0475;
+    b[23] = 0.21388;
+    a[24] = 0.05;
+    b[24] = 0.22006;
+    a[25] = 0.055;
+    b[25] = 0.2318;
+    a[26] = 0.06;
+    b[26] = 0.24337;
+    a[27] = 0.065;
+    b[27] = 0.25459;
+    a[28] = 0.07;
+    b[28] = 0.26547;
+    a[29] = 0.075;
+    b[29] = 0.27607;
+    a[30] = 0.08;
+    b[30] = 0.28641;
+    a[31] = 0.085;
+    b[31] = 0.29651;
+    a[32] = 0.09;
+    b[32] = 0.30639;
+    a[33] = 0.095;
+    b[33] = 0.31607;
+    a[34] = 0.1;
+    b[34] = 0.32559;
+    a[35] = 0.15;
+    b[35] = 0.41314;
+    a[36] = 0.2;
+    b[36] = 0.4916;
+    a[37] = 0.25;
+    b[37] = 0.56433;
+    a[38] = 0.3;
+    b[38] = 0.63301;
+    a[39] = 0.35;
+    b[39] = 0.69885;
+    a[40] = 0.4;
+    b[40] = 0.76245;
+    a[41] = 0.45;
+    b[41] = 0.82448;
+    a[42] = 0.5;
+    b[42] = 0.88459;
+    a[43] = 0.75;
+    b[43] = 1.172;
+    a[44] = 1;
+    b[44] = 1.4455;
+    a[45] = 1.25;
+    b[45] = 1.7094;
+    a[46] = 1.5;
+    b[46] = 1.9707;
+    a[47] = 1.75;
+    b[47] = 2.2274;
+    a[48] = 2;
+    b[48] = 2.484;
+    a[49] = 2.25;
+    b[49] = 2.7368;
+    a[50] = 2.5;
+    b[50] = 2.9909;
+    a[51] = 2.75;
+    b[51] = 3.2435;
+    a[52] = 3;
+    b[52] = 3.4925;
+    a[53] = 3.25;
+    b[53] = 3.7429;
+    a[54] = 3.5;
+    b[54] = 3.9952;
+    a[55] = 3.75;
+    b[55] = 4.2427;
+    a[56] = 4;
+    b[56] = 4.4924;
+    a[57] = 4.25;
+    b[57] = 4.7386;
+    a[58] = 4.5;
+    b[58] = 4.9904;
+    a[59] = 4.75;
+    b[59] = 5.2408;
+    a[60] = 5;
+    b[60] = 5.4988;
+
+    let emaxddQn;
+
+    if (x > 5) {
+      emaxddQn = x + 0.5;
+    } else if (x < 0.0005) {
+      emaxddQn = 0.5 * Math.sqrt(pi * x);
+    } else {
+      emaxddQn = LinInterp(x, a, b);
+    }
+
+    return emaxddQn;
+  }
+
+  function LinInterp(x0, vx, vy) {
+    const n = vx.length;
+
+    let LinInterpResult;
+
+    if (x0 <= vx[1])
+      LinInterpResult = vy[1];
+    else if (x0 >= vx[n - 1])
+      LinInterpResult = vy[n - 1];
+    else {
+      for (let i = 1; i < n - 1; i++) {
+        const x1 = vx[i];
+        const x2 = vx[i + 1];
+        const y1 = vy[i];
+        const y2 = vy[i + 1];
+        if (x0 >= x1 && x0 < x2) {
+          LinInterpResult = y1 + (y2 - y1) * (x0 - x1) / (x2 - x1);
+          break;
+        }
+      }
+    }
+
+    return LinInterpResult;
+  }
+
+  function simulateSerie(odds, yield, betSize, numBets) {
+
+    if (odds < 1) {
+      odds = 1;
+      yield = 0;
+    }
+
+    if (numBets < 0)
+      numBets = 0
+
+    const hitrate = (1 + yield) / odds;
+
+    let profit = 0;
+    let maxProfit = 0;
+    let drawdown = 0;
+    let MDD = 0;
+    let xy = [];
+
+    xy[0] = [0, 0, 0, 0];
+
+    for (let i = 1; i < numBets; i++) {
+      const rnd = Math.random(); // Rnd da un nÃºmero aleatorio entre 0 y 1     
+
+      if (rnd < hitrate)
+        profit = profit + betSize * (odds - 1);
+      else
+        profit = profit - betSize;
+
+      if (profit > maxProfit)
+        maxProfit = profit;
+
+      drawdown = maxProfit - profit;
+
+      if (drawdown > MDD)
+        MDD = drawdown;
+
+      xy[i] = [];
+      xy[i][0] = i;
+      xy[i][1] = profit;
+      xy[i][2] = drawdown;
+      xy[i][3] = MDD;
+    }
+
+
+    return xy;
+
+  }
+
+  function McMedianMaximumDrawdown(mDD) {
+    let mcMedianMaximumDrawdown = 0;
+    const len = mDD.length;
+    const mDDSort = mDD.sort();
+    const mid = Math.ceil(len / 2);
+
+    mcMedianMaximumDrawdown = len % 2 == 0 ? (mDDSort[mid] + mDDSort[mid - 1]) / 2 : mDDSort[mid - 1];
+    return mcMedianMaximumDrawdown;
+
+  }
+
+  function McProbGTMaximumDrawdown(mDD, X) {
+    let numSimulations = mDD.length;
+    let McProbGTMaximumDrawdown = 0
+    for (let i = 0; i < numSimulations; i++) {
+      if (mDD[i] > X)
+        McProbGTMaximumDrawdown = McProbGTMaximumDrawdown + 1;
+    }
+    McProbGTMaximumDrawdown = McProbGTMaximumDrawdown / numSimulations
+    return McProbGTMaximumDrawdown;
+  }
+
+  function LogGamma(Z) {
+    let LG;
+    with (Math) {
+      let S = 1 + 76.18009173 / Z - 86.50532033 / (Z + 1) + 24.01409822 / (Z + 2) - 1.231739516 / (Z + 3) + .00120858003 / (Z + 4) - .00000536382 / (Z + 5);
+      LG = (Z - .5) * log(Z + 4.5) - (Z + 4.5) + log(S * 2.50662827465);
+    }
+    return LG;
+  }
+
+  function Betinc(X, A, B) {
+    let A0 = 0;
+    let B0 = 1;
+    let A1 = 1;
+    let B1 = 1;
+    let M9 = 0;
+    let A2 = 0;
+    let C9;
+    while (Math.abs((A1 - A2) / A1) > .00001) {
+      A2 = A1;
+      C9 = -(A + M9) * (A + B + M9) * X / (A + 2 * M9) / (A + 2 * M9 + 1);
+      A0 = A1 + C9 * A0;
+      B0 = B1 + C9 * B0;
+      M9 = M9 + 1;
+      C9 = M9 * (B - M9) * X / (A + 2 * M9 - 1) / (A + 2 * M9);
+      A1 = A0 + C9 * A1;
+      B1 = B0 + C9 * B1;
+      A0 = A0 / B1;
+      B0 = B0 / B1;
+      A1 = A1 / B1;
+      B1 = 1;
+    }
+    return A1 / A
+  }
+
+  function probabilityofyieldgreaterthanY(odds, yield, numBets, Y) {
+    // N = Número de apuestas
+    let N = numBets
+    // P = Hitrate
+    let P = (1 + yield) / odds
+    // X = Máximo número de aciertos para que el yield sea menor o igual que Y
+    let X = Math.floor(numBets * (1 + Y) / odds)
+
+    with (Math) {
+      if (N <= 0) {
+        alert("sample size must be positive")
+      } else if ((P < 0) || (P > 1)) {
+        alert("probability must be between 0 and 1")
+      } else if (X < 0) {
+        bincdf = 0
+      } else if (X >= N) {
+        bincdf = 1
+      } else {
+        X = floor(X);
+        Z = P;
+        A = X + 1;
+        B = N - X;
+        S = A + B;
+        BT = exp(LogGamma(S) - LogGamma(B) - LogGamma(A) + A * log(Z) + B * log(1 - Z));
+        if (Z < (A + 1) / (S + 2)) {
+          Betacdf = BT * Betinc(Z, A, B)
+        } else {
+          Betacdf = 1 - BT * Betinc(1 - Z, B, A)
+        }
+        bincdf = 1 - Betacdf;
+      }
+      bincdf = round(bincdf * 100000) / 100000;
+    }
+    return (1 - bincdf);
+  }
+
+  // calculate function
+  function calculateEv(event) {
+
+    const N = parseFloat(document.querySelector('#nBets input').value);
+    const NError = document.querySelector('#nBets p');
+
+    const Y = parseFloat(document.querySelector('#yield input').value);
+    const YError = document.querySelector('#yield p');
+
+    const BS = parseFloat(document.querySelector('#betSize input').value);
+    const BSError = document.querySelector('#betSize p');
+
+    const O = parseFloat(document.querySelector('#odds input').value);
+    const OError = document.querySelector('#odds p');
+
+    const NMC = parseFloat(document.querySelector('#nMontecarlo input').value);
+    const NMCError = document.querySelector('#nMontecarlo p');
+
+    const X = parseFloat(document.querySelector('#X input').value);
+    const XError = document.querySelector('#X p');
+
+    const Yy = parseFloat(document.querySelector('#Y input').value / 100);
+    const YyError = document.querySelector('#Y p');
+
+    const PValue = document.querySelector('#profit span');
+    const HRValue = document.querySelector('#hitrate span');
+    const PBValue = document.querySelector('#profitPerBet span');
+    const SDValue = document.querySelector('#yieldStandardDesviation span');
+    const TValue = document.querySelector('#tStatistic span');
+
+    const PVValue = document.querySelector('#pValue span');
+    const INX1Value = document.querySelector('#XProbability span');
+    const EMDDValue = document.querySelector('#EMDD span');
+    const XMDDValue = document.querySelector('#xMDD span');
+
+    const medianMDDValue = document.querySelector('#medianMDD span');
+    const resultXValue = document.querySelector('#resultX span');
+    const resultYValue = document.querySelector('#resultY span');
+
+
+    const ProfitEMDDValue = document.querySelector('#ProfitEMDD span');
+    const ProfitXMDDValue = document.querySelector('#ProfitxMDD span');
+
+
+
+    let show = true;
+
+    NError.innerHTML = '';
+    YError.innerHTML = '';
+    BSError.innerHTML = '';
+    OError.innerHTML = '';
+    NMCError.innerHTML = '';
+
+    if (N < 1 || !isNumeric(N)) {
+      NError.innerHTML = 'Number of bets must be greater than 0';
+      show = false;
+    }
+
+    if (!Number.isInteger(N)) {
+      NError.innerHTML = 'Number of bets must be integer';
+      show = false;
+    }
+
+    if (N > 10000) {
+      NError.innerHTML = 'Number of bets must be less than 10.000';
+      show = false;
+    }
+
+    if (O < 1 || !isNumeric(O)) {
+      OError.innerHTML = 'Odds must be greater than 1';
+      show = false;
+    }
+
+    if (BS < 0 || !isNumeric(BS)) {
+      BSError.innerHTML = 'Betsize must be greater than 0';
+      show = false;
+    }
+
+    if (NMC < 1 || !isNumeric(NMC)) {
+      NMCError.innerHTML = 'NMC must be greater than 0';
+      show = false;
+    }
+
+    if (!Number.isInteger(NMC)) {
+      NMCError.innerHTML = 'NMC must be integer';
+      show = false;
+    }
+
+    if (NMC > 10000) {
+      NMCError.innerHTML = 'NMC must be less than 10.000';
+      show = false;
+    }
+
+
+
+    let el;
+
+    if (show) {
+
+      // mostramos resultados
+      el = document.getElementById('results');
+      el.style.display = 'block';
+
+      // intermedios
+      const P = (Y / 100) * BS * N;
+      const HR = (1 + Y / 100) / O;
+      const PB = P / N;
+      const SD = Math.pow(((1 + Y / 100) * (O - 1 - (Y / 100))), 0.5);
+      const T = ((Y / 100) * (Math.pow(N, 0.5))) / SD;
+
+      // finales
+      const student = new jsstats.TDistribution(N - 1);
+      const PV = 1 - student.cumulativeProbability(T);
+      const INX1 = 1 / PV;
+      const EMDD = EMaxDrawDown(PB, SD * BS, N);
+
+      const MDD = generateMDD(O, (Y / 100), BS, N, NMC);
+      const XMDDGraph = mddDistribution(MDD);
+      const XMDD = McAvgMaximumDrawdown(MDD);
+      const ProfitEMDD = P / EMDD;
+      const ProfitXMDD = P / XMDD;
+
+      const medianMDD = McMedianMaximumDrawdown(MDD);
+      const resultX = McProbGTMaximumDrawdown(MDD, X);
+
+      const resultY = probabilityofyieldgreaterthanY(O, (Y / 100), N, Yy);
+
+      const xy = simulateSerie(O, (Y / 100), BS, N, MDD);
+
+      // dibujamos gráfica 
+      el = document.getElementById('container');
+      el.style.height = '400px';
+      el.style.width = '100%';
+
+      const chart = Highcharts.chart('container', {
+        title: {
+          text: 'Simulação única'
+        },
+        xAxis: {
+          categories: ['N de Apostas']
+        },
+        yAxis: {
+          title: {
+            text: 'Lucro & MDD'
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: 'lucro',
+          data: xy.map(d => d[1]),
+          color: 'green'
+        }, {
+          name: 'rebaixamento',
+          data: xy.map(d => d[2]),
+          color: 'red'
+        }, {
+          name: 'MDD',
+          data: xy.map(d => d[3]),
+          color: 'purple'
+        }]
+      });
+
+      // dibujamos gráfica MDD
+      el = document.getElementById('container-MDD');
+      el.style.height = '400px';
+      el.style.width = '100%';
+
+      const chart_MDD = Highcharts.chart('container-MDD', {
+        title: {
+          text: 'Distribuição máxima de saque'
+        },
+        xAxis: {
+          categories: XMDDGraph.map(d => d[0])
+        },
+        yAxis: {
+          title: {
+            text: 'Frequência máxima de rebaixamento'
+          }
+        },
+        credits: {
+          enabled: false
+        },
+        series: [{
+          name: 'MDD',
+          data: XMDDGraph.map(d => d[1]),
+          color: 'purple'
+        }]
+
+      });
+
+
+      if (!isNaN(P)) {
+        PValue.textContent = Math.round(P * 100) / 100
+        HRValue.textContent = Math.round((HR * 100) * 1000) / 1000 + '%'
+        PBValue.textContent = Math.round(PB * 100) / 100
+        SDValue.textContent = Math.round(SD * 1000) / 1000
+        TValue.textContent = Math.round(T * 1000) / 1000
+        if (PV < 0.01)
+          PVValue.textContent = Math.round((PV * 100) * 100000000000) / 100000000000 + '%'
+        else
+          PVValue.textContent = Math.round((PV * 100) * 100) / 100 + '%'
+        INX1Value.textContent = Math.round(INX1 * 100) / 100
+        EMDDValue.textContent = Math.round(EMDD * 100) / 100
+        XMDDValue.textContent = Math.round(XMDD * 100) / 100
+
+        medianMDDValue.textContent = Math.round(medianMDD * 100) / 100
+        resultXValue.textContent = Math.round((resultX * 100) * 100) / 100 + '%'
+        resultYValue.textContent = Math.round((resultY * 100) * 100) / 100 + '%'
+
+        ProfitEMDDValue.textContent = Math.round(ProfitEMDD * 100) / 100
+        ProfitXMDDValue.textContent = Math.round(ProfitXMDD * 100) / 100
+
+      }
+
+      else
+        profit.value = '';
+    }
+
+
+
+  }
+
+</script>
